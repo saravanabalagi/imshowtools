@@ -15,16 +15,12 @@ pip install imshowtools
 Open a jupyter notebook and use imshowtools as shown below:
 
 ### Show a Single Image
-
-To show a single image
 ```python
 from imshowtools import *
 imshow(your_image)
 ```
 
 ### Show Multiple Images
-
-To show multiple images
 ```python
 from imshowtools import *
 imshow(image_1, image_2, image_3)
@@ -34,6 +30,30 @@ imshow(image_1, image_2, image_3)
 ```python
 from imshowtools import *
 imshow(*my_image_array)
+```
+
+### Smart Wrapping
+We choose the right layout for you:
+
+* Have 6 images? You get 2x3
+* Have 12 images? You get 3x4
+
+### Custom Rows and Columns
+You can also choose to manually control how many rows and columns you want
+```python
+from imshowtools import *
+imshow(*my_image_array, rows=3, columns=4)
+```
+
+### BGR Colorspace
+
+OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
+```python
+from imshowtools import *
+import cv2
+
+cv2image = cv2.imread('my_image.png')
+imshow(cv2image, mode='BGR')
 ```
 
 ### Namespaces

@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 BGR_ERROR = 'BGR format could not be parsed'
 BGR_ERROR_REASON = ': img should have 3 channels and format should be "hwc" and not "cwh"'
-
+SUPPORTED_MODES = ['RGB', 'BGR']
 def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
     """
     Shows image loaded by opencv after inverting the order of channels
@@ -15,7 +15,7 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
     Args:
         *images: one of more np.array of shape h,w,c or simple h,w
         cmap: specify a cmap to apply to all images (viridis by default)
-        mode: specify a mode or color profile RGB or BGR
+        mode: specify a mode or color space RGB or BGR
         rows: number of rows to show
         columns: numbers of columns to show
     Returns:
@@ -23,8 +23,8 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
     """
     plt.rcParams['image.cmap'] = cmap
     mode = mode.upper()
-    if mode not in ['RGB', 'BGR']:
-        print('Mode or Color profile {} not found'.format(mode))
+    if mode not in SUPPORTED_MODES:
+        print('Mode {} not found. Use one from {}'.format(mode, SUPPORTED_MODES))
         return
 
     no_of_images = len(images)
