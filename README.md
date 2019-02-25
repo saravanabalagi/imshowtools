@@ -14,38 +14,38 @@ pip install imshowtools
 
 Open a jupyter notebook and use imshowtools as shown below:
 
-### Show a Single Image
+#### Show a Single Image
 ```python
 from imshowtools import *
 imshow(your_image)
 ```
 
-### Show Multiple Images
+#### Show Multiple Images
 ```python
 from imshowtools import *
 imshow(image_1, image_2, image_3)
 ```
 
-### Show Multiple Images from Array
+#### Show Multiple Images from Array
 ```python
 from imshowtools import *
 imshow(*my_image_array)
 ```
 
-### Smart Wrapping
+#### Smart Wrapping
 We choose the right layout for you:
 
 * Have 6 images? You get 2x3
 * Have 12 images? You get 3x4
 
-### Custom Rows and Columns
-You can also choose to manually control how many rows and columns you want
+#### Custom Rows and Columns
+You can also choose to manually control how many rows and columns you
 ```python
 from imshowtools import *
 imshow(*my_image_array, rows=3, columns=4)
 ```
 
-### BGR Colorspace
+#### BGR Colorspace
 
 OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
 ```python
@@ -56,12 +56,18 @@ cv2image = cv2.imread('my_image.png')
 imshow(cv2image, mode='BGR')
 ```
 
-### Namespaces
+#### Namespaces
 If you do not want to use `imshow` directly in your app (maybe you have another function named imshow), you shall use it like
 
 ```python
 import imshowtools
 imshowtools.imshow(your_image)
+```
+
+or if you like to use a custom namespace
+```python
+import imshowtools as my_namespace
+my_namespace.imshow(your_image)
 ```
 
 ## Uninstall
