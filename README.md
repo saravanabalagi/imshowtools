@@ -6,7 +6,7 @@ This library that allows you to view images in Jupyter notebooks in a much simpl
 
 To install imshowtools,
 
-```
+```python
 pip install imshowtools
 ```
 
@@ -17,7 +17,7 @@ Open a jupyter notebook and use imshowtools as shown below:
 ### Show a Single Image
 
 To show a single image
-```
+```python
 from imshowtools import *
 imshow(your_image)
 ```
@@ -25,13 +25,13 @@ imshow(your_image)
 ### Show Multiple Images
 
 To show multiple images
-```
+```python
 from imshowtools import *
 imshow(image_1, image_2, image_3)
 ```
 
 ### Show Multiple Images from Array
-```
+```python
 from imshowtools import *
 imshow(*my_image_array)
 ```
@@ -39,7 +39,7 @@ imshow(*my_image_array)
 ### Namespaces
 If you do not want to use `imshow` directly in your app (maybe you have another function named imshow), you shall use it like
 
-```
+```python
 import imshowtools
 imshowtools.imshow(your_image)
 ```
@@ -48,7 +48,7 @@ imshowtools.imshow(your_image)
 
 To uninstall `imshowtools`,
 
-```
+```python
 pip uninstall imshowtools
 ```
 
