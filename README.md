@@ -1,6 +1,6 @@
 # imshowtools
 
-This library that allows you to view images in Jupyter notebooks in a much simpler way.
+This library lets you view images in Jupyter notebooks in a much simpler and intuitive way. Ships with a better 'imshow' function with Multi Images, Smart Wrap and BGR support!.
 
 ## Installation
 
@@ -32,13 +32,12 @@ from imshowtools import *
 imshow(*my_image_array)
 ```
 
-#### Smart Wrapping
+#### Smart Wrapping / Custom Rows and Columns
 We choose the right layout for you:
 
 * Have 6 images? You get 2x3
 * Have 12 images? You get 3x4
 
-#### Custom Rows and Columns
 You can also choose to manually control how many rows and columns you
 ```python
 from imshowtools import *
