@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="imshowtools",
-    version="0.2.0",
+    version="0.2.1",
     description="imshowtools contains simplified imshow functions to show multiple images and with other options",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -19,8 +19,8 @@ setup(
     author_email="saravanabalagi@hotmail.com",
     license="MIT",
     classifiers=[
-    	"Development Status :: 3 - Alpha",
-    	"Topic :: Software Development :: Libraries",
+        "Development Status :: 4 - Beta",
+        "Topic :: Software Development :: Libraries",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
