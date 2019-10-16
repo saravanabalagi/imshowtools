@@ -12,27 +12,79 @@ pip install imshowtools
 
 ## Usage
 
-Open a jupyter notebook and use imshowtools as shown below:
-
-#### Show a Single Image
-```python
-from imshowtools import *
-imshow(your_image)
+Import `imshow` from `imshowtools` and use it like:
+ 
+```py
+from imshowtools import imshow
+imshow(lenna)
 ```
+
+![lenna](example/lenna_rgb.png)
+
+## Advanced Usage
+
+#### Colorspaces
+
+OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
+
+```python
+import cv2
+cv2image = cv2.imread('lenna.png')
+imshow(cv2image)
+```
+![lenna](example/lenna_bgr.png)
+
+```python
+imshow(cv2image, mode='BGR')
+```
+![lenna](example/lenna_rgb.png)
 
 #### Show Multiple Images
 ```python
-from imshowtools import *
 imshow(image_1, image_2, image_3)
 ```
 
-#### Show Multiple Images from Array
+#### Show Multiple Images from List
+
 ```python
-from imshowtools import *
-imshow(*my_image_array)
+imshow(*[my_image_list])
 ```
 
+Example:
+
+```python
+mnist = tf.keras.datasets.mnist
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+[x_train.shape, y_train.shape], [x_test.shape, y_test.shape]
+imshow(*x_train[:25])
+```
+
+![mnist-25](example/mnist_25.png)
+
+Multiple images with colorspace:
+
+```python
+imshow(*x_train[:100], cmap='gray')
+```
+
+![mnist-100](example/mnist_100.png)
+
+#### Single Row and Single Column
+
+```python
+imshow(*x_train[:16], cmap='binary', rows=1)
+```
+![mnist-row](example/mnist_row.png)
+
+```python
+imshow(*x_train[:4], cmap='binary', columns=1)
+```
+![mnist-column](example/mnist_column.png)
+
 #### Smart Wrapping / Custom Rows and Columns
+
 We choose the right layout for you:
 
 * Have 6 images? You get 2x3
@@ -40,19 +92,7 @@ We choose the right layout for you:
 
 You can also choose to manually control how many rows and columns you
 ```python
-from imshowtools import *
 imshow(*my_image_array, rows=3, columns=4)
-```
-
-#### BGR Colorspace
-
-OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
-```python
-from imshowtools import *
-import cv2
-
-cv2image = cv2.imread('my_image.png')
-imshow(cv2image, mode='BGR')
 ```
 
 #### Namespaces
@@ -77,14 +117,15 @@ To uninstall `imshowtools`,
 pip uninstall imshowtools
 ```
 
+## Contributing
+
+Pull requests are very welcome.
+
+1. Fork the repo
+1. Create new branch with feature name as branch name
+1. Check if things work with a jupyter notebook
+1. Raise a pull request
+
 ## Licence
 
-MIT License
-
-Copyright (c) 2019 Saravanabalagi Ramachandran
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Please see attached [Licence](LICENCE)
