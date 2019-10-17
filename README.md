@@ -1,12 +1,16 @@
 # imshowtools
 
+![](https://img.shields.io/pypi/v/imshowtools)
+![](https://img.shields.io/pypi/wheel/imshowtools)
+![](https://img.shields.io/pypi/l/imshowtools)
+
 This library lets you view images in Jupyter notebooks in a much simpler and intuitive way. Ships with a better 'imshow' function with Multi Images, Smart Wrap and BGR support!.
 
 ## Installation
 
-To install imshowtools,
+To install `imshowtools`, simply do
 
-```python
+```py
 pip install imshowtools
 ```
 
@@ -27,32 +31,32 @@ imshow(lenna)
 
 OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
 
-```python
+```py
 import cv2
 cv2image = cv2.imread('lenna.png')
 imshow(cv2image)
 ```
 ![lenna](example/lenna_bgr.png)
 
-```python
+```py
 imshow(cv2image, mode='BGR')
 ```
 ![lenna](example/lenna_rgb.png)
 
 #### Show Multiple Images
-```python
+```py
 imshow(image_1, image_2, image_3)
 ```
 
 #### Show Multiple Images from List
 
-```python
+```py
 imshow(*[my_image_list])
 ```
 
 Example:
 
-```python
+```py
 mnist = tf.keras.datasets.mnist
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -65,7 +69,7 @@ imshow(*x_train[:25])
 
 Multiple images with colorspace:
 
-```python
+```py
 imshow(*x_train[:100], cmap='gray')
 ```
 
@@ -73,12 +77,12 @@ imshow(*x_train[:100], cmap='gray')
 
 #### Single Row and Single Column
 
-```python
+```py
 imshow(*x_train[:16], cmap='binary', rows=1)
 ```
 ![mnist-row](example/mnist_row.png)
 
-```python
+```py
 imshow(*x_train[:4], cmap='binary', columns=1)
 ```
 ![mnist-column](example/mnist_column.png)
@@ -91,20 +95,20 @@ We choose the right layout for you:
 * Have 12 images? You get 3x4
 
 You can also choose to manually control how many rows and columns you
-```python
+```py
 imshow(*my_image_array, rows=3, columns=4)
 ```
 
 #### Namespaces
 If you do not want to use `imshow` directly in your app (maybe you have another function named imshow), you shall use it like
 
-```python
+```py
 import imshowtools
 imshowtools.imshow(your_image)
 ```
 
 or if you like to use a custom namespace
-```python
+```py
 import imshowtools as my_namespace
 my_namespace.imshow(your_image)
 ```
@@ -113,7 +117,7 @@ my_namespace.imshow(your_image)
 
 To uninstall `imshowtools`,
 
-```python
+```py
 pip uninstall imshowtools
 ```
 
