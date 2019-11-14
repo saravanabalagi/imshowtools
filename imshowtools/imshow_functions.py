@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 BGR_ERROR = 'BGR format could not be parsed'
 BGR_ERROR_REASON = ': img should have 3 channels and format should be "hwc" and not "cwh"'
 SUPPORTED_MODES = ['RGB', 'BGR']
-def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
+def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB', title=None):
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
@@ -18,6 +18,9 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
         None
     """
     plt.rcParams['image.cmap'] = cmap
+    if title is not None:
+        plt.figure(title)
+    
     mode = mode.upper()
     if mode not in SUPPORTED_MODES:
         print('Mode {} not found. Use one from {}'.format(mode, SUPPORTED_MODES))
@@ -55,6 +58,7 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
         axis.axis('off')
         
     plt.show()
+    return
 
 def is_bgr(img):
     if len(img.shape)==3 and img.shape[2]==3:
