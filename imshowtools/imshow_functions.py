@@ -8,7 +8,7 @@ SUPPORTED_MODES = ['RGB', 'BGR']
 
 
 def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None,
-           mode: Union[str, list] = 'RGB', window_title: str = None, title: Union[str, list] = None) -> None:
+           mode: Union[str, list] = None, window_title: str = None, title: Union[str, list] = None) -> None:
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
