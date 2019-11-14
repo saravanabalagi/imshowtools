@@ -37,6 +37,7 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
                 print('{} for the image{}'.format(BGR_ERROR, BGR_ERROR_REASON))
                 return
         plt.axis('off')
+        plt.show()
         return
 
     if rows is None: rows = int(np.sqrt(no_of_images))
@@ -52,6 +53,8 @@ def imshow(*images, cmap='viridis', rows=None, columns=None, mode='RGB'):
                 if is_bgr(img): axis.imshow(img[:,:,::-1])
                 else: print('{} for image #{}{}'.format(BGR_ERROR, index, BGR_ERROR_REASON))
         axis.axis('off')
+        
+    plt.show()
 
 def is_bgr(img):
     if len(img.shape)==3 and img.shape[2]==3:
