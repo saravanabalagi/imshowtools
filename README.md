@@ -89,10 +89,11 @@ imshow(*x_train[:4], cmap='binary', columns=1)
 
 #### Smart Wrapping / Custom Rows and Columns
 
-We choose the right layout for you:
+`imhow` chooses the optimal layout:
 
 * Have 6 images? You get 2x3
 * Have 12 images? You get 3x4
+* Have 20 images? You get 4x5
 
 You can also choose to manually control how many rows and columns you
 ```py
