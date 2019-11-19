@@ -1,5 +1,6 @@
 import pathlib
 from setuptools import setup
+from imshowtools import __version__
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -10,7 +11,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="imshowtools",
-    version="0.3.1",
+    version=__version__,
     description="imshowtools contains simplified imshow functions to show multiple images and with other options",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -28,5 +29,5 @@ setup(
     ],
     packages=["imshowtools"],
     include_package_data=True,
-    install_requires=["numpy", "matplotlib"]
+    install_requires=["matplotlib"]
 )
