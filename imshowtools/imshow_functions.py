@@ -43,7 +43,7 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
 
     no_of_images = len(images)
     if no_of_images is 0:
-        print("Please provide atleast one image to display! Try again")
+        print("Please provide at least one image to display! Try again")
         return
 
     if no_of_images is 1:
@@ -74,3 +74,22 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
 
     plt.show()
     return
+
+
+def cvshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None,
+           window_title: str = None, title: Union[str, list] = None) -> None:
+    """
+    Convenience function for displaying images loaded by OpenCV which are read as BGR by default,
+    same as using imshow with `mode='BGR'`
+    Args:
+        *images: one of more np.array of shape h,w,c or simple h,w
+        cmap: specify a cmap to apply to all images (viridis by default)
+        rows: number of rows to show
+        columns: numbers of columns to show
+        window_title: window title (not applicable for ipynb notebooks)
+        title: title for the image, or list of titles - one for each image
+    Returns:
+        None
+    """
+    return imshow(*images, cmap=cmap, rows=rows, columns=columns, mode='BGR',
+                  window_title=window_title, title=title)
