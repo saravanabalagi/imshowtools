@@ -19,13 +19,22 @@ def _has_three_or_four_channels(img):
 
 def _convert_mode(img, mode=None, index=None):
     if mode is None:
-        return img
+        mode = 'RGB'
+
+    if img is None:
+        raise ValueError(f'Image{(" " + index) if index else ""} is None')
 
     mode = mode.upper()
     if mode not in _SUPPORTED_MODES:
         raise ValueError('Mode {} not found. Use one from {}'.format(mode, _SUPPORTED_MODES))
 
     if _has_one_channel(img):
+        # squeeze if it has shape [h, w, 1]
+        if len(img.shape) == 3:
+            img = img[:, :, 0]
+
+        # Colorspace conversion not required
+        # for single channel images
         mode = 'RGB'
 
     if mode == 'RGB':
