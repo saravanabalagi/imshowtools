@@ -39,9 +39,13 @@ imshow(cv2image)
 ![lenna](example/lenna_bgr.png)
 
 ```py
-imshow(cv2image, mode='BGR')
+cvshow(cv2image)                        # cvshow convenience function
+imshow(cv2image, mode='BGR')            # imshow with mode
 ```
 ![lenna](example/lenna_rgb.png)
+
+**Tip**: `imshow` can display `[h, w, 1]` shaped images as well 
+in addition to `[h, w]` single channel images. 
 
 #### Show Multiple Images
 ```py
