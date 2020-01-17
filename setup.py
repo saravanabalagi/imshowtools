@@ -29,5 +29,5 @@ setup(
     ],
     packages=["imshowtools"],
     include_package_data=True,
-    install_requires=["matplotlib"]
+    install_requires=["matplotlib", "numpy"]
 )

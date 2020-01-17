@@ -1,4 +1,12 @@
 import warnings
+import platform
+import tempfile
+from datetime import datetime
+import os
+
+import numpy as np
+from matplotlib import pyplot as plt
+from matplotlib.pyplot import imread
 
 _SUPPORTED_MODES = ['RGB', 'BGR']
 
@@ -44,3 +52,31 @@ def _convert_mode(img, mode=None, index=None):
             warnings.warn(f'Image {index if index else ""} has {img.shape[2]} channels, expecting 3 or 4 channels.\n'
                           f'Using BGR mode may not produce expected output as it simply reverses channel order.')
         return img[:, :, ::-1]
+
+
+def _imshow_finally(fig, return_image):
+    if not return_image:
+        plt.show()
+        return
+    else:
+        # workaround for not using numpy, uses disk, slower
+        # return _save_and_retrieve_image()
+
+        # direct method, not using disk
+        fig.canvas.draw()
+        width, height = fig.get_size_inches() * fig.get_dpi()
+        image = np.frombuffer(fig.canvas.tostring_argb(), dtype='uint8').reshape(int(height), int(width), 4)
+        image = image[:, :, [1, 2, 3, 0]]          # convert from argb to rgba
+        plt.close(fig)
+        return image
+
+
+def _save_and_retrieve_image():
+    tempdir = '/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
+    filename = f'{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'
+    filepath = os.path.join(tempdir, filename)
+    plt.savefig(filepath, transparent=True)
+
+    image = imread(filepath)
+    os.remove(filepath)
+    return image

@@ -2,11 +2,11 @@ from matplotlib import pyplot as plt
 from typing import Union
 import math
 
-from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES
+from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES, _imshow_finally
 
 
-def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None,
-           mode: Union[str, list] = None, window_title: str = None, title: Union[str, list] = None) -> None:
+def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None, mode: Union[str, list] = None,
+           window_title: str = None, title: Union[str, list] = None, return_image: bool = False) -> None:
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
@@ -18,12 +18,18 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
         columns: numbers of columns to show
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles - one for each image
+        return_image: if True will return an image (numpy hwc array); will not display image
     Returns:
         None
     """
     plt.rcParams['image.cmap'] = cmap
-    if window_title is not None:
-        plt.figure(window_title)
+
+    # Setting fig in other cases works,
+    # But matplotlib will print a warning
+    # <Figure size 432x288 with 0 Axes>
+    fig = None
+    if window_title is not None or return_image is True:
+        fig = plt.figure(window_title)
 
     title_list = None
     if type(title) is str:
@@ -51,8 +57,7 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
         img = _convert_mode(img, mode)
         plt.imshow(img)
         plt.axis('off')
-        plt.show()
-        return
+        return _imshow_finally(fig, return_image)
 
     if rows is None:
         rows = int(math.sqrt(no_of_images))
@@ -72,8 +77,7 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
             axis.imshow(img)
         axis.axis('off')
 
-    plt.show()
-    return
+    return _imshow_finally(fig, return_image)
 
 
 def cvshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None,
