@@ -21,7 +21,7 @@ def _has_three_or_four_channels(img):
     return False
 
 
-def _convert_mode(img, mode=None, index=None):
+def _convert_mode(img, mode=None, cmap=None, index=None):
     if mode is None:
         mode = 'RGB'
 
@@ -36,6 +36,11 @@ def _convert_mode(img, mode=None, index=None):
         # squeeze if it has shape [h, w, 1]
         if len(img.shape) == 3:
             img = img[:, :, 0]
+
+        # Convert 1 Channel to 3 Channel
+        # if no cmap is applied
+        if cmap is None:
+            img = np.stack([img]*3, axis=-1)
 
         # Colorspace conversion not required
         # for single channel images
