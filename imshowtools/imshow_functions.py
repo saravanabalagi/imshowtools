@@ -23,6 +23,11 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
     Returns:
         None if return_image is False, else numpy.ndarray of shape [h,w,c] depending on its value.
     """
+    no_of_images = len(images)
+    if no_of_images is 0:
+        print("Please provide at least one image to display! Try again")
+        return
+
     plt.rcParams['image.cmap'] = cmap
 
     # Setting fig in other cases works,
@@ -48,11 +53,6 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
         else:
             raise ValueError(f'Mode can either be a string or a list of strings from {_SUPPORTED_MODES}')
 
-    no_of_images = len(images)
-    if no_of_images is 0:
-        print("Please provide at least one image to display! Try again")
-        return
-
     if no_of_images is 1:
         img = images[0]
         img = _convert_mode(img, mode)
@@ -61,7 +61,10 @@ def imshow(*images, cmap: str = 'viridis', rows: int = None, columns: int = None
         return _imshow_finally(fig, return_image)
 
     if rows is None:
-        rows = int(math.sqrt(no_of_images))
+        if columns is not None:
+            rows = int(math.ceil(no_of_images / columns))
+        else:
+            rows = int(math.sqrt(no_of_images))
     if columns is None:
         columns = int(math.ceil(no_of_images / rows))
 
