@@ -57,7 +57,7 @@ def _imshow_finally(fig, return_image):
     else:
         return_type = "RGB"
         if type(return_image) is bool and return_image is True:
-            return_type = "RGBA"
+            return_type = "RGB"
         elif type(return_image) is str and return_image in _RETURN_IMAGE_TYPES:
             return_type = return_image
         else:
@@ -84,5 +84,6 @@ def _imshow_finally(fig, return_image):
             return np.dot(image_rgba[..., :3], [0.2989, 0.5870, 0.1140])
         elif return_type == "ARGB":
             return image_argb
-
-        return image_rgba
+        elif return_type == "RGBA":
+            return image_rgba
+        return image_rgba[..., :3]
