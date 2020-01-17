@@ -81,8 +81,10 @@ imshow(*x_train[:100], cmap='gray')
 
 #### Get Plot as Image
 
-You can set `return_image` attribute to `True` in any imshow function
-to get the image as RGBA numpy hwc array instead of displaying it.
+You can set `return_image` attribute to `True` (to get 'RGB') 
+or to `['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]` in any imshow function
+to get the image as numpy hwc or hw array with appropriate colorspace. Note that the image
+will not be displayed when using `return_image`.
 
 It is very useful if you want to save the multi-image plots. 
 
