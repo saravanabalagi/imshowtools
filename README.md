@@ -14,113 +14,73 @@ To install `imshowtools`, simply do
 pip install imshowtools
 ```
 
-## Usage
+## Quick Plot
 
-Import `imshow` from `imshowtools` and use it like:
+Import `imshow` from `imshowtools` and use it:
  
 ```py
 from imshowtools import imshow
-imshow(lenna)
+import tensorflow as tf
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+
+imshow(x_train[0])
+imshow(x_train[0], x_train[1], x_train[2])
+imshow(*x_train[:20], cmap='binary')
+imshow(*x_train[:100], cmap='binary')
 ```
 
-![lenna](example/lenna_rgb.png)
+You can use any matplotlib `cmap`
 
-## Advanced Usage
+![mnist](example/mnist_intro.png)
 
-#### Colorspaces
+## Get Numpy Image
 
-OpenCV lover? `imshowtools` can also handle `cv2`'s BGR images
-
-```py
-import cv2
-cv2image = cv2.imread('lenna.png')
-imshow(cv2image)
-```
-![lenna](example/lenna_bgr.png)
+You can use obtain numpy image in any of `['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]` colorspaces.
 
 ```py
-cvshow(cv2image)                        # cvshow convenience function
-imshow(cv2image, mode='BGR')            # imshow with mode
-```
-![lenna](example/lenna_rgb.png)
-
-**Tip**: `imshow` can display `[h, w, 1]` shaped images as well 
-in addition to `[h, w]` single channel images. 
-
-#### Show Multiple Images
-```py
-imshow(image_1, image_2, image_3)
-```
-
-#### Show Multiple Images from List
-
-```py
-imshow(*[my_image_list])
-```
-
-Example:
-
-```py
-mnist = tf.keras.datasets.mnist
-
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train, x_test = x_train / 255.0, x_test / 255.0
-[x_train.shape, y_train.shape], [x_test.shape, y_test.shape]
-imshow(*x_train[:25])
-```
-
-![mnist-25](example/mnist_25.png)
-
-Multiple images with colorspace:
-
-```py
-imshow(*x_train[:100], cmap='gray')
-```
-
-![mnist-100](example/mnist_100.png)
-
-#### Get Plot as Image
-
-You can set `return_image` attribute to `True` (to get 'RGB') 
-or to `['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]` in any imshow function
-to get the image as numpy hwc or hw array with appropriate colorspace. Note that the image
-will not be displayed when using `return_image`.
-
-It is very useful if you want to save the multi-image plots. 
-
-```py
-image = imshow(*x_train[:100], cmap='gray', return_image=True)
+image = imshow(*x_train[:100], return_image=True)
+image = imshow(*x_train[:100], return_image="RGBA")
+image = imshow(*x_train[:100], return_image="RGB")
+image = imshow(*x_train[:100], return_image="BW")
 print(image.shape)
-# Output (288, 432, 4)
+
+# cv2.imwrite("saved_sample.png", image)
+# do stuff with 'image' or even
+# imshow(image)
 ```
 
+Output:
+```py
+(288, 432, 3)
+(288, 432, 4)
+(288, 432, 3)
+(288, 432)
+```
 
-#### Single Row and Single Column
+## Rows and Columns
 
 ```py
-imshow(*x_train[:16], cmap='binary', rows=1)
+imshow(*x_train[:15], cmap='Purples', rows=1)
+imshow(*x_train[:24], cmap='Greens', columns=4)
 ```
-![mnist-row](example/mnist_row.png)
+
+![mnist](example/mnist_rc.png)
+
+## Open CV Images
 
 ```py
-imshow(*x_train[:4], cmap='binary', columns=1)
+lenna = cv2.imread('example/lenna.png')
+imshow(lenna)
+cvshow(lenna)
+imshow(lenna, mode='BGR')
+
+image = imshow(*[lenna for _ in range(12)], return_image="BW")
+print(image.shape)
+imshow(image)
 ```
-![mnist-column](example/mnist_column.png)
+![lenna](example/lenna_collage.png)
 
-#### Smart Wrapping / Custom Rows and Columns
-
-`imhow` chooses the optimal layout:
-
-* Have 6 images? You get 2x3
-* Have 12 images? You get 3x4
-* Have 20 images? You get 4x5
-
-You can also choose to manually control how many rows and columns you
-```py
-imshow(*my_image_array, rows=3, columns=4)
-```
-
-#### Namespaces
+## Namespaces
 If you do not want to use `imshow` directly in your app (maybe you have another function named imshow), you shall use it like
 
 ```py
@@ -132,14 +92,6 @@ or if you like to use a custom namespace
 ```py
 import imshowtools as my_namespace
 my_namespace.imshow(your_image)
-```
-
-## Uninstall
-
-To uninstall `imshowtools`,
-
-```py
-pip uninstall imshowtools
 ```
 
 ## Contributing
