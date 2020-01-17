@@ -1,12 +1,13 @@
 from matplotlib import pyplot as plt
-from typing import Union, Any
+from typing import Union, Any, List
 import math
 
 from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES, _imshow_finally, _RETURN_IMAGE_TYPES
+from imshowtools.validation_functions import _validate_list
 
 
-def imshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None,
-           mode: Union[str, list] = None, window_title: str = None, title: Union[str, list] = None,
+def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
+           mode: Union[str, List] = None, window_title: str = None, title: Union[str, List] = None,
            return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Shows image loaded by opencv after inverting the order of channels
@@ -24,12 +25,10 @@ def imshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None,
     Returns:
         None if return_image is False, else numpy.ndarray of shape [h,w,c] depending on its value.
     """
-    no_of_images = len(images)
-    if no_of_images is 0:
+    num_images = len(images)
+    if num_images is 0:
         print("Please provide at least one image to display! Try again")
         return
-
-    plt.rcParams['image.cmap'] = cmap
 
     # Setting fig in other cases works,
     # But matplotlib will print a warning
@@ -38,55 +37,46 @@ def imshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None,
     if window_title is not None or return_image is True or return_image in _RETURN_IMAGE_TYPES:
         fig = plt.figure(window_title)
 
-    title_list = None
+    _validate_list(mode, [str, type(None)], num_images=num_images, list_name='mode', in_str=_SUPPORTED_MODES)
+    _validate_list(cmap, [str, type(None)], num_images=num_images, list_name='cmap', in_str=plt.colormaps())
+    _validate_list(title, [str, type(None)], num_images=num_images, list_name='title')
+
     if type(title) is str:
         plt.title(title)
-    elif type(title) is list:
-        if len(title) == len(images) and all([type(el) == str for el in title]):
-            title_list = title
-        else:
-            raise ValueError('Title can either be a string or a list of strings')
 
-    mode_list = None
-    if type(mode) is list:
-        if len(mode) == len(images) and all([type(el) == str or el is None for el in mode]):
-            mode_list = mode
-        else:
-            raise ValueError(f'Mode can either be a string or a list of strings from {_SUPPORTED_MODES}')
-
-    if no_of_images is 1:
+    if num_images is 1:
         img = images[0]
-        img = _convert_mode(img, mode)
+        img = _convert_mode(img, mode, cmap)
         plt.imshow(img)
         plt.axis('off')
         return _imshow_finally(fig, return_image)
 
     if rows is None:
         if columns is not None:
-            rows = int(math.ceil(no_of_images / columns))
+            rows = int(math.ceil(num_images / columns))
         else:
-            rows = int(math.sqrt(no_of_images))
+            rows = int(math.sqrt(num_images))
     if columns is None:
-        columns = int(math.ceil(no_of_images / rows))
+        columns = int(math.ceil(num_images / rows))
 
     fig, axes = plt.subplots(rows, columns)
     for index, axis in enumerate(axes.reshape(-1)):
-        if index < no_of_images:
+        if index < num_images:
             img = images[index]
-            if mode_list:
-                img = _convert_mode(img, mode_list[index], index)
-            else:
-                img = _convert_mode(img, mode, index)
-            if title_list:
-                axis.set_title(title_list[index])
-            axis.imshow(img)
+            current_mode = mode[index] if type(mode) is list else mode
+            current_cmap = cmap[index] if type(cmap) is list else cmap
+            current_title = title[index] if type(title) is list else title
+            img = _convert_mode(img, current_mode, current_cmap, index=index)
+            if current_title is not None:
+                axis.set_title(current_title)
+            axis.imshow(img, cmap=current_cmap)
         axis.axis('off')
 
     return _imshow_finally(fig, return_image)
 
 
 def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, window_title: str = None,
-           title: Union[str, list] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
+           title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Convenience function for displaying images loaded by OpenCV which are read as BGR by default,
     same as using imshow with `mode='BGR'`
