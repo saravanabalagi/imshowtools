@@ -79,6 +79,20 @@ imshow(*x_train[:100], cmap='gray')
 
 ![mnist-100](example/mnist_100.png)
 
+#### Get Plot as Image
+
+You can set `return_image` attribute to `True` in any imshow function
+to get the image as RGBA numpy hwc array instead of displaying it.
+
+It is very useful if you want to save the multi-image plots. 
+
+```py
+image = imshow(*x_train[:100], cmap='gray', return_image=True)
+print(image.shape)
+# Output (288, 432, 4)
+```
+
+
 #### Single Row and Single Column
 
 ```py
