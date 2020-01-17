@@ -29,9 +29,12 @@ imshow(*x_train[:20], cmap='binary')
 imshow(*x_train[:100], cmap='binary')
 ```
 
-You can use any matplotlib `cmap`
+You can use any matplotlib compatible `cmap`
 
 ![mnist](example/mnist_intro.png)
+
+Example [ipynb](example/example.ipynb) notebook and [Python](example/example.py) along with test images 
+provided in the example folder.
 
 ## Get Numpy Image
 
