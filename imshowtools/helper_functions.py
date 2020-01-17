@@ -86,7 +86,7 @@ def _imshow_finally(fig, return_image):
             return image_rgba[..., [3, 2, 1, 0]]
         elif return_type in ["BW", "L"]:
             # ITU-R 601-2 luma transform
-            return np.dot(image_rgba[..., :3], [0.2989, 0.5870, 0.1140])
+            return np.dot(image_rgba[..., :3], [0.2989, 0.5870, 0.1140]).astype('uint8')
         elif return_type == "ARGB":
             return image_argb
         elif return_type == "RGBA":

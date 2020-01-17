@@ -23,7 +23,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"] returns Image.
                       if True returns 'RGB'. Does not display image if set. if False, returns None, but displays image.
     Returns:
-        None if return_image is False, else numpy.ndarray of shape [h,w,c] depending on its value.
+        None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
     """
     num_images = len(images)
     if num_images is 0:
@@ -90,7 +90,7 @@ def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, w
         return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"] returns Image.
                       if True returns 'RGB'. Does not display image if set. if False, returns None, but displays image.
     Returns:
-        None if return_image is False, else numpy.ndarray of shape [h,w,c] depending on its value.
+        None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
     """
     return imshow(*images, cmap=cmap, rows=rows, columns=columns, mode='BGR',
                   window_title=window_title, title=title, return_image=return_image)
