@@ -41,16 +41,13 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
     _validate_list(cmap, [str, type(None)], num_images=num_images, list_name='cmap', in_str=plt.colormaps())
     _validate_list(title, [str, type(None)], num_images=num_images, list_name='title')
 
-    if type(title) is str:
-        plt.title(title)
-
     if num_images is 1:
         img = images[0]
         img = _convert_mode(img, mode, cmap)
         plt.imshow(img)
         plt.axis('off')
         fig = plt.gcf()
-        return _imshow_finally(fig, return_image, window_title)
+        return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title)
 
     if rows is None:
         if columns is not None:
@@ -66,14 +63,14 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
             img = images[index]
             current_mode = mode[index] if type(mode) is list else mode
             current_cmap = cmap[index] if type(cmap) is list else cmap
-            current_title = title[index] if type(title) is list else title
+            current_title = title[index] if type(title) is list else None
             img = _convert_mode(img, current_mode, current_cmap, index=index)
             if current_title is not None:
                 axis.set_title(current_title)
             axis.imshow(img, cmap=current_cmap)
         axis.axis('off')
 
-    return _imshow_finally(fig, return_image, window_title)
+    return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title)
 
 
 def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, window_title: str = None,

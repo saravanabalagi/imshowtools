@@ -7,9 +7,11 @@ _SUPPORTED_MODES = ['RGB', 'BGR']
 _RETURN_IMAGE_TYPES = ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]
 
 
-def _set_window_title(fig, title):
-    if title is not None:
-        fig.canvas.set_window_title(title)
+def _set_window_plot_title(fig, window_title, plt_title):
+    if window_title is not None and type(window_title) is str:
+        fig.canvas.set_window_title(window_title)
+    if plt_title is not None and type(plt_title) is str:
+        fig.suptitle(plt_title)
 
 
 def _has_one_channel(img):
@@ -63,10 +65,10 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
         return img[:, :, ::-1]
 
 
-def _imshow_finally(fig, return_image, window_title):
+def _imshow_finally(fig, return_image, window_title, plt_title):
 
-    # Set window Title
-    _set_window_title(fig, window_title)
+    # Set Plot Title and Window Title
+    _set_window_plot_title(fig, window_title, plt_title)
 
     # Show image when return_image is None or False
     if return_image is None or return_image is False:
