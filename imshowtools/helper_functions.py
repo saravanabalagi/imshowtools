@@ -26,7 +26,10 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
         mode = 'RGB'
 
     if img is None:
-        raise ValueError(f'Image{(" " + index) if index else ""} is None')
+        image_index_str = "Image"
+        if index is not None:
+            image_index_str += " " + str(index)
+        raise ValueError(f'{image_index_str} is None')
 
     mode = mode.upper()
     if mode not in _SUPPORTED_MODES:
