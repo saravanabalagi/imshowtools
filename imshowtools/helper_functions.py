@@ -7,13 +7,19 @@ _SUPPORTED_MODES = ['RGB', 'BGR']
 _RETURN_IMAGE_TYPES = ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]
 
 
-def _set_padding(fig, padding):
-    if padding is False:
-        return
-    elif padding is True:
-        fig.tight_layout(pad=0)
+def _set_padding(fig, padding, plt_title):
+    if padding is True:
+        fig.tight_layout()
     elif type(padding) in [float, int]:
         fig.tight_layout(pad=padding)
+
+    # padding param can also be a list with each param corresponding to params of
+    # https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.tight_layout.html
+    elif type(padding) in [list, tuple]:
+        if len(padding) == 4:
+            fig.tight_layout(*padding[:-1], rect=padding[-1])
+        else:
+            fig.tight_layout(*padding)
 
 
 def _set_window_plot_title(fig, window_title, plt_title):
@@ -77,8 +83,8 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
 def _imshow_finally(fig, return_image, window_title, plt_title, padding):
 
     # Set Plot Title, Window Title and Padding
+    _set_padding(fig, padding=padding, plt_title=plt_title)
     _set_window_plot_title(fig, window_title, plt_title)
-    _set_padding(fig, padding=padding)
 
     # Show image when return_image is None or False
     if return_image is None or return_image is False:
