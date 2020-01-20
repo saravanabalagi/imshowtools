@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from typing import Union, Any, List
 import math
 
-from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES, _imshow_finally, _RETURN_IMAGE_TYPES
+from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES, _imshow_finally
 from imshowtools.validation_functions import _validate_list
 
 
@@ -49,7 +49,8 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         img = _convert_mode(img, mode, cmap)
         plt.imshow(img)
         plt.axis('off')
-        return _imshow_finally(fig, return_image)
+        fig = plt.gcf()
+        return _imshow_finally(fig, return_image, window_title)
 
     if rows is None:
         if columns is not None:
@@ -72,7 +73,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
             axis.imshow(img, cmap=current_cmap)
         axis.axis('off')
 
-    return _imshow_finally(fig, return_image)
+    return _imshow_finally(fig, return_image, window_title)
 
 
 def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, window_title: str = None,
