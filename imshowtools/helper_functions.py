@@ -7,7 +7,7 @@ _SUPPORTED_MODES = ['RGB', 'BGR']
 _RETURN_IMAGE_TYPES = ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]
 
 
-def _set_padding(fig, padding, plt_title):
+def _set_padding(fig, padding):
     if padding is True:
         fig.tight_layout()
     elif type(padding) in [float, int]:
@@ -26,7 +26,9 @@ def _set_window_plot_title(fig, window_title, plt_title):
     if window_title is not None and type(window_title) is str:
         fig.canvas.set_window_title(window_title)
     if plt_title is not None and type(plt_title) is str:
-        fig.suptitle(plt_title)
+        # Refer to https://stackoverflow.com/a/55768955/3125070
+        fig.subplots_adjust(top=0.9)
+        fig.suptitle(plt_title, y=0.96)
 
 
 def _has_one_channel(img):
@@ -83,7 +85,7 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
 def _imshow_finally(fig, return_image, window_title, plt_title, padding):
 
     # Set Plot Title, Window Title and Padding
-    _set_padding(fig, padding=padding, plt_title=plt_title)
+    _set_padding(fig, padding=padding)
     _set_window_plot_title(fig, window_title, plt_title)
 
     # Show image when return_image is None or False
