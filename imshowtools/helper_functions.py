@@ -7,6 +7,15 @@ _SUPPORTED_MODES = ['RGB', 'BGR']
 _RETURN_IMAGE_TYPES = ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"]
 
 
+def _set_padding(fig, padding):
+    if padding is False:
+        return
+    elif padding is True:
+        fig.tight_layout(pad=0)
+    elif type(padding) in [float, int]:
+        fig.tight_layout(pad=padding)
+
+
 def _set_window_plot_title(fig, window_title, plt_title):
     if window_title is not None and type(window_title) is str:
         fig.canvas.set_window_title(window_title)
@@ -65,10 +74,11 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
         return img[:, :, ::-1]
 
 
-def _imshow_finally(fig, return_image, window_title, plt_title):
+def _imshow_finally(fig, return_image, window_title, plt_title, padding):
 
-    # Set Plot Title and Window Title
+    # Set Plot Title, Window Title and Padding
     _set_window_plot_title(fig, window_title, plt_title)
+    _set_padding(fig, padding=padding)
 
     # Show image when return_image is None or False
     if return_image is None or return_image is False:

@@ -7,8 +7,8 @@ from imshowtools.validation_functions import _validate_list
 
 
 def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
-           mode: Union[str, List] = None, window_title: str = None, title: Union[str, List] = None,
-           return_image: Union[bool, str] = False) -> Union[None, Any]:
+           padding: Union[bool, float, int] = False, mode: Union[str, List] = None, window_title: str = None,
+           title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
@@ -17,6 +17,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         cmap: specify a cmap to apply to all images (gray by default)
         mode: specify a mode or color space one in RGB or BGR
         rows: number of rows to show
+        padding: amount of padding between the figure edge and the edges of subplots (as a fraction of the font size).
         columns: numbers of columns to show
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles, one for each image
@@ -30,13 +31,6 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         print("Please provide at least one image to display! Try again")
         return
 
-    # Setting fig in other cases works,
-    # But matplotlib will print a warning
-    # <Figure size 432x288 with 0 Axes>
-    fig = None
-    if window_title is not None or return_image is True or return_image in _RETURN_IMAGE_TYPES:
-        fig = plt.figure(window_title)
-
     _validate_list(mode, [str, type(None)], num_images=num_images, list_name='mode', in_str=_SUPPORTED_MODES)
     _validate_list(cmap, [str, type(None)], num_images=num_images, list_name='cmap', in_str=plt.colormaps())
     _validate_list(title, [str, type(None)], num_images=num_images, list_name='title')
@@ -47,7 +41,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         plt.imshow(img)
         plt.axis('off')
         fig = plt.gcf()
-        return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title)
+        return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title, padding=padding)
 
     if rows is None:
         if columns is not None:
@@ -70,10 +64,11 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
             axis.imshow(img, cmap=current_cmap)
         axis.axis('off')
 
-    return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title)
+    return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title, padding=padding)
 
 
-def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, window_title: str = None,
+def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
+           padding: Union[bool, float, int] = False, window_title: str = None,
            title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Convenience function for displaying images loaded by OpenCV which are read as BGR by default,
@@ -82,6 +77,7 @@ def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, w
         *images: one of more np.array of shape h,w,c or simple h,w
         cmap: specify a cmap to apply to all images (gray by default)
         rows: number of rows to show
+        padding: amount of padding between the figure edge and the edges of subplots (as a fraction of the font size).
         columns: numbers of columns to show
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles - one for each image
@@ -90,5 +86,5 @@ def cvshow(*images, cmap: str = 'gray', rows: int = None, columns: int = None, w
     Returns:
         None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
     """
-    return imshow(*images, cmap=cmap, rows=rows, columns=columns, mode='BGR',
+    return imshow(*images, cmap=cmap, rows=rows, columns=columns, padding=padding, mode='BGR',
                   window_title=window_title, title=title, return_image=return_image)
