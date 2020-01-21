@@ -16,10 +16,16 @@ def _set_padding(fig, padding):
     # padding param can also be a list with each param corresponding to params of
     # https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.tight_layout.html
     elif type(padding) in [list, tuple]:
-        if len(padding) == 4:
-            fig.tight_layout(*padding[:-1], rect=padding[-1])
+        if len(padding) == 1:
+            fig.tight_layout(pad=padding[0])
+        elif len(padding) == 2:
+            fig.tight_layout(pad=padding[0], h_pad=padding[1], w_pad=padding[1])
+        elif len(padding) == 3:
+            fig.tight_layout(pad=padding[0], h_pad=padding[1], w_pad=padding[2])
+        elif len(padding) == 4:
+            fig.tight_layout(pad=padding[0], h_pad=padding[1], w_pad=padding[2], rect=padding[3])
         else:
-            fig.tight_layout(*padding)
+            raise ValueError("Can only accept upto 4 args for padding")
 
 
 def _set_window_plot_title(fig, window_title, plt_title):

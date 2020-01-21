@@ -7,7 +7,7 @@ from imshowtools.validation_functions import _validate_list
 
 
 def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
-           padding: Union[bool, float, int, tuple, list] = True, mode: Union[str, List] = 'RGB',
+           padding: Union[bool, float, int, tuple, list] = False, mode: Union[str, List] = 'RGB',
            window_title: str = None, title: Union[str, List, None] = None,
            return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
@@ -19,7 +19,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         mode: specify a mode or color space one in RGB or BGR, applicable only for 3 or 4 channel image
         rows: number of rows to show
         columns: numbers of columns to show
-        padding: amount of padding as a fraction of the font size. Default: figure's set to tight_layout().
+        padding: amount of padding as a fraction of the font size.
                  Shall also be given as a list with params for tight_layout() function
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles, one for each image
@@ -80,7 +80,7 @@ def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         cmap: specify a cmap to apply to all images, applicable only for single channel image, defaults to None
         rows: number of rows to show
         columns: numbers of columns to show
-        padding: amount of padding as a fraction of the font size. Default: figure's set to tight_layout().
+        padding: amount of padding as a fraction of the font size.
                  Shall also be given as a list with params for tight_layout() function
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles, one for each image
