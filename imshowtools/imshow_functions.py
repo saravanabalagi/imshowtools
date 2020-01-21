@@ -7,8 +7,9 @@ from imshowtools.validation_functions import _validate_list
 
 
 def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
-           padding: Union[bool, float, int, tuple, list] = True, mode: Union[str, List] = None, window_title: str = None,
-           title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
+           padding: Union[bool, float, int, tuple, list] = True, mode: Union[str, List] = 'RGB',
+           window_title: str = None, title: Union[str, List, None] = None,
+           return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
@@ -32,7 +33,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         print("Please provide at least one image to display! Try again")
         return
 
-    _validate_list(mode, [str, type(None)], num_images=num_images, list_name='mode', in_str=_SUPPORTED_MODES)
+    _validate_list(mode, [str], num_images=num_images, list_name='mode', in_str=_SUPPORTED_MODES)
     _validate_list(cmap, [str, type(None)], num_images=num_images, list_name='cmap', in_str=plt.colormaps())
     _validate_list(title, [str, type(None)], num_images=num_images, list_name='title')
 

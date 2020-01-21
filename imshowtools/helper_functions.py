@@ -46,8 +46,6 @@ def _has_three_or_four_channels(img):
 
 
 def _convert_mode(img, mode=None, cmap=None, index=None):
-    if mode is None:
-        mode = 'RGB'
 
     if img is None:
         image_index_str = "Image"
@@ -69,17 +67,13 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
         if cmap is None:
             img = np.stack([img]*3, axis=-1)
 
-        # Colorspace conversion not required
-        # for single channel images
-        mode = 'RGB'
-
-    if mode == 'RGB':
-        return img
-    elif mode == 'BGR':
+    if mode == 'BGR':
         if not _has_three_or_four_channels(img):
             warnings.warn(f'Image {index if index else ""} has {img.shape[2]} channels, expecting 3 or 4 channels.\n'
                           f'Using BGR mode may not produce expected output as it simply reverses channel order.')
         return img[:, :, ::-1]
+
+    return img
 
 
 def _imshow_finally(fig, return_image, window_title, plt_title, padding):
