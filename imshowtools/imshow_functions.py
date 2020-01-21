@@ -39,7 +39,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
     if num_images is 1:
         img = images[0]
         img = _convert_mode(img, mode, cmap)
-        plt.imshow(img)
+        plt.imshow(img, cmap=cmap)
         plt.axis('off')
         fig = plt.gcf()
         return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title, padding=padding)
