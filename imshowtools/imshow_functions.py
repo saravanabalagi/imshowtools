@@ -14,15 +14,15 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
     Can also be used to show single layer depth image
     Args:
         *images: one of more np.array of shape h,w,c or simple h,w
-        cmap: specify a cmap to apply to all images (gray by default)
-        mode: specify a mode or color space one in RGB or BGR
+        cmap: specify a cmap to apply to all images, applicable only for single channel image, defaults to None
+        mode: specify a mode or color space one in RGB or BGR, applicable only for 3 or 4 channel image
         rows: number of rows to show
+        columns: numbers of columns to show
         padding: amount of padding as a fraction of the font size. Default: figure's set to tight_layout().
                  Shall also be given as a list with params for tight_layout() function
-        columns: numbers of columns to show
         window_title: window title (not applicable for ipynb notebooks)
         title: title for the image, or list of titles, one for each image
-        return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"] returns Image.
+        return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', 'BGR', 'BGRA', 'ABGR'] returns Image.
                       if True returns 'RGB'. Does not display image if set. if False, returns None, but displays image.
     Returns:
         None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
@@ -72,17 +72,18 @@ def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
            padding: Union[bool, float, int, tuple, list] = True, window_title: str = None,
            title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
-    Convenience function for displaying images loaded by OpenCV which are read as BGR by default,
-    same as using imshow with `mode='BGR'`
+    Shows image loaded by opencv after inverting the order of channels
+    Can also be used to show single layer depth image
     Args:
         *images: one of more np.array of shape h,w,c or simple h,w
-        cmap: specify a cmap to apply to all images (gray by default)
+        cmap: specify a cmap to apply to all images, applicable only for single channel image, defaults to None
         rows: number of rows to show
-        padding: amount of padding between the figure edge and the edges of subplots (as a fraction of the font size).
         columns: numbers of columns to show
+        padding: amount of padding as a fraction of the font size. Default: figure's set to tight_layout().
+                 Shall also be given as a list with params for tight_layout() function
         window_title: window title (not applicable for ipynb notebooks)
-        title: title for the image, or list of titles - one for each image
-        return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', "BGR", "BGRA", "ABGR"] returns Image.
+        title: title for the image, or list of titles, one for each image
+        return_image: if one of ['RGB', 'RGBA', 'ARGB', 'BW', 'L', 'BGR', 'BGRA', 'ABGR'] returns Image.
                       if True returns 'RGB'. Does not display image if set. if False, returns None, but displays image.
     Returns:
         None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
