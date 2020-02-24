@@ -1,14 +1,14 @@
 from matplotlib import pyplot as plt
-from typing import Union, Any, List
+from typing import Union, Any
 import math
 
 from imshowtools.helper_functions import _convert_mode, _SUPPORTED_MODES, _imshow_finally
 from imshowtools.validation_functions import _validate_list
 
 
-def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
-           padding: Union[bool, float, int, tuple, list] = False, mode: Union[str, List] = 'RGB',
-           window_title: str = None, title: Union[str, List, None] = None,
+def imshow(*images, cmap: Union[str, list, None] = None, rows: int = None, columns: int = None,
+           size: Union[tuple, list] = None, padding: Union[bool, float, int, tuple, list] = False,
+           mode: Union[str, list] = 'RGB', window_title: str = None, title: Union[str, list, None] = None,
            return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Shows image loaded by opencv after inverting the order of channels
@@ -19,6 +19,7 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         mode: specify a mode or color space one in RGB or BGR, applicable only for 3 or 4 channel image
         rows: number of rows to show
         columns: numbers of columns to show
+        size: size of the figure in inches in order [w,h] as tuple or list
         padding: amount of padding as a fraction of the font size.
                  Shall also be given as a list with params for tight_layout() function
         window_title: window title (not applicable for ipynb notebooks)
@@ -43,7 +44,8 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         plt.imshow(img, cmap=cmap)
         plt.axis('off')
         fig = plt.gcf()
-        return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title, padding=padding)
+        return _imshow_finally(fig, return_image, window_title=window_title,
+                               plt_title=title, padding=padding, size=size)
 
     if rows is None:
         if columns is not None:
@@ -66,12 +68,14 @@ def imshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
             axis.imshow(img, cmap=current_cmap)
         axis.axis('off')
 
-    return _imshow_finally(fig, return_image, window_title=window_title, plt_title=title, padding=padding)
+    return _imshow_finally(fig, return_image, window_title=window_title,
+                           plt_title=title, padding=padding, size=size)
 
 
-def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, columns: int = None,
-           padding: Union[bool, float, int, tuple, list] = True, window_title: str = None,
-           title: Union[str, List] = None, return_image: Union[bool, str] = False) -> Union[None, Any]:
+def cvshow(*images, cmap: Union[str, list, None] = None, rows: int = None, columns: int = None,
+           size: Union[tuple, list] = None, padding: Union[bool, float, int, tuple, list] = True,
+           window_title: str = None, title: Union[str, list] = None,
+           return_image: Union[bool, str] = False) -> Union[None, Any]:
     """
     Shows image loaded by opencv after inverting the order of channels
     Can also be used to show single layer depth image
@@ -80,6 +84,7 @@ def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
         cmap: specify a cmap to apply to all images, applicable only for single channel image, defaults to None
         rows: number of rows to show
         columns: numbers of columns to show
+        size: size of the figure in inches in order [w,h] as tuple or list
         padding: amount of padding as a fraction of the font size.
                  Shall also be given as a list with params for tight_layout() function
         window_title: window title (not applicable for ipynb notebooks)
@@ -89,5 +94,5 @@ def cvshow(*images, cmap: Union[str, List, None] = None, rows: int = None, colum
     Returns:
         None if return_image is False, else uint8 numpy.ndarray of shape [h,w,c] or [h,w] depending on its value.
     """
-    return imshow(*images, cmap=cmap, rows=rows, columns=columns, padding=padding, mode='BGR',
+    return imshow(*images, cmap=cmap, rows=rows, columns=columns, size=size, padding=padding, mode='BGR',
                   window_title=window_title, title=title, return_image=return_image)

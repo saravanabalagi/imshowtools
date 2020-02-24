@@ -26,7 +26,7 @@ import tensorflow as tf
 imshow(x_train[0])
 imshow(x_train[0], x_train[1], x_train[2])
 imshow(*x_train[:20], cmap='binary')
-imshow(*x_train[:100], cmap='binary')
+imshow(*x_train[:100], cmap='binary', size=(10, 10))
 ```
 
 You can use any matplotlib compatible `cmap`

@@ -82,7 +82,11 @@ def _convert_mode(img, mode=None, cmap=None, index=None):
     return img
 
 
-def _imshow_finally(fig, return_image, window_title, plt_title, padding):
+def _imshow_finally(fig, return_image, window_title, plt_title, padding, size):
+
+    # Set Size
+    if size is not None:
+        fig.set_size_inches(size)
 
     # Set Plot Title, Window Title and Padding
     _set_padding(fig, padding=padding)
