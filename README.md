@@ -3,6 +3,7 @@
 ![](https://img.shields.io/pypi/v/imshowtools)
 ![](https://img.shields.io/pypi/wheel/imshowtools)
 ![](https://img.shields.io/pypi/l/imshowtools)
+![](https://img.shields.io/pypi/dm/imshowtools)
 
 This library lets you view images in Jupyter notebooks in a much simpler and intuitive way. Ships with a better 'imshow' function with Multi Images, Smart Wrap and BGR support!.
 
