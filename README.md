@@ -17,7 +17,7 @@ pip install imshowtools
 ## Quick Plot
 
 Import `imshow` from `imshowtools` and use it:
- 
+
 ```py
 from imshowtools import imshow
 import tensorflow as tf
@@ -31,9 +31,9 @@ imshow(*x_train[:100], cmap='binary', size=(10, 10))
 
 You can use any matplotlib compatible `cmap`
 
-![mnist](example/mnist_intro.png)
+![mnist](https://github.com/saravanabalagi/imshowtools/raw/master/example/mnist_intro.png)
 
-Example [ipynb](example/example.ipynb) notebook and [Python](example/example.py) along with test images 
+Example [ipynb](https://github.com/saravanabalagi/imshowtools/blob/master/example/example.ipynb) notebook and [Python](https://github.com/saravanabalagi/imshowtools/blob/master/example/example.py) along with test images
 provided in the example folder.
 
 ## Get Numpy Image
@@ -67,7 +67,7 @@ imshow(*x_train[:15], cmap='Purples', rows=1)
 imshow(*x_train[:24], cmap='Greens', columns=4)
 ```
 
-![mnist](example/mnist_rc.png)
+![mnist](https://github.com/saravanabalagi/imshowtools/raw/master/example/mnist_rc.png)
 
 ## Open CV Images
 
@@ -81,7 +81,7 @@ image = imshow(*[lenna for _ in range(12)], return_image="BW")
 print(image.shape)
 imshow(image)
 ```
-![lenna](example/lenna_collage.png)
+![lenna](https://github.com/saravanabalagi/imshowtools/raw/master/example/lenna_collage.png)
 
 ## Namespaces
 If you do not want to use `imshow` directly in your app (maybe you have another function named imshow), you shall use it like
