@@ -109,4 +109,4 @@ Pull requests are very welcome.
 
 ## Licence
 
-Please see attached [Licence](LICENCE)
+Please see attached [Licence](https://github.com/saravanabalagi/imshowtools/blob/master/LICENCE)
